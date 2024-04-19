@@ -21,7 +21,7 @@ class AboutUsWindow:
         self.about_us_label = tk.Label(self.window, text=self.about_us_message, font=("Helvetica", 12))
         self.about_us_label.pack(padx=20, pady=10)
 
-        self.back_button = BackButton(self.window, self.close_window)
+        self.back_button = ExitButton(self.window, self.close_window)
         self.back_button.pack(pady=10)
 
     def close_window(self):

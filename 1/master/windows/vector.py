@@ -62,7 +62,7 @@ class VectorModelWindow:
             
     def show_search_results(self, query):
         vector_model = VectorSpaceModel(self.documents)
-        search_result = vector_model.search(query)
+        search_result, ranked_similarities = vector_model.search(query)       
         self.results = search_result
         self.search_results_text.delete("1.0", tk.END)
         
@@ -118,5 +118,5 @@ class VectorModelWindow:
     def show_graph(self):
         graph_window = tk.Toplevel(self.window)
         graph_window.title("Social Event Visualization")
-        graph_window.geometry("600x400")
-        draw_graph(self.results)
+        graph_window.geometry("600x700")
+        draw_graph(self.results, self.documents, graph_window)

@@ -17,10 +17,14 @@ class VectorSpaceModel:
 
     def search(self, query):
         query_vector = self.vectorizer.transform([query])
-        similarities = cosine_similarity(query_vector, self.vectorized_documents)
-        ranked_indices = similarities.argsort()[0][::-1]
-        return ranked_indices
-
+        similarities = cosine_similarity(query_vector, self.vectorized_documents)        
+        positive_similarities_indices = similarities[0] > 0
+        ranked_indices = positive_similarities_indices.nonzero()[0]        
+        ranked_similarities = similarities[0][ranked_indices]        
+        ranked_indices = ranked_indices[ranked_similarities.argsort()[::-1]]
+        ranked_similarities = sorted(ranked_similarities, reverse=True)
+        return ranked_indices, ranked_similarities        
+        
 def preprocess_text(text):
     text = text.lower()
     text = re.sub(r'\W', ' ', text)

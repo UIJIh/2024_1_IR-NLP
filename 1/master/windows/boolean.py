@@ -67,14 +67,15 @@ class BooleanModelWindow:
         self.search_results_text.delete("1.0", tk.END)  
         
         if search_result:
-            for doc_id in search_result:
+            sorted_result = sorted(search_result, key=lambda x: self.documents[x]['date'])
+            for doc_id in sorted_result:
                 title = self.documents[doc_id]['title']
                 date = self.documents[doc_id]['date']
                 self.search_results_text.insert(tk.END, f"Title: {title}\nDate: {date}\n")
                 keywords = extract_keywords(self.documents[doc_id]['article'])
                 self.search_results_text.insert(tk.END, f"Keywords: {keywords}\n\n")
         else:
-            self.search_results_text.insert(tk.END, "No matching documents found.")
+            self.search_results_text.insert(tk.END, "No matching documents found.")        
             
     def read_selected_article(self):
         selected_title = self.selected_title_entry.get()
@@ -117,5 +118,5 @@ class BooleanModelWindow:
     def show_graph(self):
         graph_window = tk.Toplevel(self.window)
         graph_window.title("Social Event Visualization")
-        graph_window.geometry("600x400")
-        draw_graph(self.results)
+        graph_window.geometry("600x700")
+        draw_graph(self.results, self.documents, graph_window)

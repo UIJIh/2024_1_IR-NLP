@@ -1,8 +1,8 @@
 import sys
 sys.path.append('..')
 from utils.buttons import *
-from boolean import BooleanModelWindow
-from vector import VectorModelWindow
+from windows.boolean import BooleanModelWindow
+from windows.vector import VectorModelWindow
 import tkinter as tk
 import csv
 
